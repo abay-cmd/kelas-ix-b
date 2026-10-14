@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TANPA NAMA | Kelas IX B MTs Al-Hidayah Bojongnangka</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        netflixRed: '#E50914',
+                        netflixDarkRed: '#B81D24',
+                        cinematicBlack: '#080808',
+                        cinematicSurface: '#121212',
+                        cinematicBorder: '#232323',
+                    },
+                    fontFamily: {
+                        bebas: ['"Bebas Neue"', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Share Tech Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #080808;
+            color: #ffffff;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.16) 0%, transparent 55%),
+                radial-gradient(circle at 85% 25%, rgba(229, 9, 20, 0.08) 0%, transparent 45%);
+        }
+
+        /* Subtle Retro Scanline Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+            background-size: 100% 4px;
+            z-index: 40;
+            opacity: 0.35;
+        }
+
+        /* Custom Cut-Corner Angular Frame (Reference Design Chapter 01) */
+        .cut-corner-box {
+            position: relative;
+            background: #111111;
+            clip-path: polygon(
+                0 0, 
+                calc(100% - 28px) 0, 
+                100% 28px, 
+                100% 100%, 
+                28px 100%, 
+                0 calc(100% - 28px)
+            );
+        }
+
+        .cut-corner-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            clip-path: polygon(
+                0 0, 
+                calc(100% - 28px) 0, 
+                100% 28px, 
+                100% 100%, 
+                28px 100%, 
+                0 calc(100% - 28px)
+            );
+            border: 2px solid #E50914;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.6) inset;
+        }
+
+        /* Custom Reverse Cut-Corner (Reference Design Chapter 02) */
+        .cut-corner-reverse {
+            clip-path: polygon(
+                28px 0, 
+                100% 0, 
+                100% calc(100% - 28px), 
+                calc(100% - 28px) 100%, 
+                0 100%, 
+                0 28px
+            );
+        }
+
+        .cut-corner-reverse::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            clip-path: polygon(
+                28px 0, 
+                100% 0, 
+                100% calc(100% - 28px), 
+                calc(100% - 28px) 100%, 
+                0 100%, 
+                0 28px
+            );
+            border: 2px solid #E50914;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.6) inset;
+        }
+
+        /* Glow effects */
+        .neon-red-glow {
+            text-shadow: 0 0 16px rgba(229, 9, 20, 0.9), 0 0 38px rgba(229, 9, 20, 0.5);
+        }
+
+        .box-red-glow {
+            box-shadow: 0 0 30px rgba(229, 9, 20, 0.35);
+        }
+
+        /* Glitch animation for title */
+        @keyframes glitchAnim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .hover-glitch:hover {
+            animation: glitchAnim 0.3s ease infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b2b2b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E50914;
+        }
+
+        /* Ambient Canvas overlay */
+        #dust-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="selection:bg-netflixRed selection:text-white relative">
+    <div class="scanlines"></div>
+    <canvas id="dust-canvas"></canvas>
+
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-b from-black/95 via-black/80 to-transparent backdrop-blur-md px-4 md:px-12 py-3.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <!-- Netflix Brand / Class Identity -->
+                <a href="#hero" class="flex items-center gap-2 group cursor-pointer">
+                    <span class="font-bebas text-3xl md:text-4xl tracking-wider text-netflixRed font-black transform group-hover:scale-105 transition-transform duration-200 neon-red-glow hover-glitch">
+                        TANPA NAMA
+                    </span>
+                    <span class="text-[10px] uppercase font-mono px-2 py-0.5 border border-netflixRed/50 text-neutral-300 rounded bg-netflixRed/20 hidden sm:inline-block">
+                        IX B • AL-HIDAYAH
+                    </span>
+                </a>
+
+                <!-- Nav Links Desktop -->
+                <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-neutral-300">
+                    <a href="#hero" class="hover:text-netflixRed transition-colors">Home</a>
+                    <a href="#chapters" class="hover:text-netflixRed transition-colors">Chapters (Episodes)</a>
+                    <a href="#cast" class="hover:text-netflixRed transition-colors">The Cast (18 Siswa)</a>
+                    <a href="#schedule" class="hover:text-netflixRed transition-colors">Jadwal & Piket</a>
+                    <a href="#structure" class="hover:text-netflixRed transition-colors">Struktur Kelas</a>
+                    <a href="#memories" class="hover:text-netflixRed transition-colors">Kapsul Waktu</a>
+                </nav>
+            </div>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-3 md:gap-4">
+                <!-- Sound Toggle / Tudum FX -->
+                <button id="tudum-btn" onclick="playTudumSound()" title="Klik untuk mendengarkan TUDUM Audio asli" class="px-3.5 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-700 hover:border-netflixRed hover:text-netflixRed text-xs font-mono flex items-center gap-2 transition-all shadow-lg active:scale-95">
+                    <i class="fa-solid fa-volume-high text-netflixRed animate-pulse"></i>
+                    <span class="hidden sm:inline">TUDUM FX</span>
+                </button>
+
+                <!-- GitHub / Deploy Guide modal button -->
+                <button onclick="toggleDeployModal(true)" class="px-3.5 py-1.5 rounded bg-netflixRed hover:bg-netflixDarkRed text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md shadow-red-950/60 active:scale-95">
+                    <i class="fa-brands fa-github text-sm"></i>
+                    <span class="hidden md:inline">Panduan Deploy Vercel</span>
+                </button>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button id="mobile-toggle" onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-neutral-200 hover:text-netflixRed focus:outline-none p-1">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-3 pt-3 border-t border-neutral-800 flex flex-col gap-2.5 text-sm text-neutral-300 bg-black/95 p-4 rounded-xl shadow-2xl">
+            <a href="#hero" onclick="toggleMobileMenu()" class="hover:text-netflixRed py-1">Home</a>
+            <a href="#chapters" onclick="toggleMobileMenu()" class="hover:text-netflixRed py-1">Chapters (Episode Kenangan)</a>
+            <a href="#cast" onclick="toggleMobileMenu()" class="hover:text-netflixRed py-1">The Cast (18 Siswa)</a>
+            <a href="#schedule" onclick="toggleMobileMenu()" class="hover:text-netflixRed py-1">Jadwal & Piket Harian</a>
+            <a href="#structure" onclick="toggleMobileMenu()" class="hover:text-netflixRed py-1">Struktur Organisasi</a>
+            <a href="#memories" onclick="toggleMobileMenu()" class="hover:text-netflixRed py-1">Kapsul Waktu & Pesan</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-16">
+        <section id="hero" class="relative min-h-[92vh] flex items-center justify-center px-4 md:px-12 py-16 overflow-hidden">
+            <!-- Background Backdrop with Dark Gradient Overlay -->
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-t from-cinematicBlack via-cinematicBlack/75 to-transparent z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-cinematicBlack via-cinematicBlack/65 to-transparent z-10"></div>
+                
+                <div class="w-full h-full bg-cover bg-center opacity-35 scale-105 filter blur-[1px] transition-transform duration-1000" style="background-image: radial-gradient(circle at center, #35080b 0%, #080808 85%);">
+                    <svg class="w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="grid" width="45" height="45" patternUnits="userSpaceOnUse">
+                                <path d="M 45 0 L 0 0 0 45" fill="none" stroke="#E50914" stroke-width="0.75" />
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="relative z-20 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-6">
+                <div class="lg:col-span-8 space-y-5">
+                    <!-- Netflix Series Tag -->
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1.5 bg-netflixRed px-2.5 py-0.5 rounded text-[11px] font-black tracking-widest uppercase text-white shadow-lg">
+                            <span class="text-sm font-black">N</span> SERIES
+                        </div>
+                        <span class="text-xs uppercase tracking-widest font-mono text-neutral-400">
+                            MTs Al-Hidayah Bojongnangka • Official
+                        </span>
+                    </div>
+
+                    <!-- Main Title -->
+                    <h1 class="text-5xl sm:text-7xl md:text-8xl font-bebas tracking-wide leading-none text-white drop-shadow-md">
+                        VICTORIOUS <span class="text-netflixRed neon-red-glow">THINGS</span>
+                    </h1>
+
+                    <!-- Cinematic Metadata Pill Bar (From Poster) -->
+                    <div class="flex flex-wrap items-center gap-3 text-xs md:text-sm font-mono text-neutral-300">
+                        <span class="text-emerald-400 font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-star text-xs"></i> 100% Match
+                        </span>
+                        <span class="border border-neutral-700 px-2 py-0.5 rounded bg-neutral-900/80">2023 - 2024</span>
+                        <span class="border border-neutral-700 px-2 py-0.5 rounded bg-neutral-900/80">13+</span>
+                        <span class="text-neutral-300 font-semibold">3 Season</span>
+                        <span class="border border-netflixRed/40 text-netflixRed px-2 py-0.5 rounded bg-netflixRed/10">Ultra HD 4K</span>
+                        <span class="text-neutral-400">| 18 Cast Members</span>
+                    </div>
+
+                    <!-- Synopsis (Exact quote from poster) -->
+                    <p class="text-neutral-300 text-base md:text-lg max-w-2xl font-light leading-relaxed italic border-l-2 border-netflixRed pl-4 bg-black/40 py-2 rounded-r">
+                        "a story that gives memories, in eighth and ninth grade with joy without hate, intended for a memory."
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <button onclick="openTrailerModal()" class="flex items-center gap-3 bg-netflixRed hover:bg-netflixDarkRed text-white px-8 py-3.5 rounded font-bold uppercase tracking-wider text-sm transition-all transform hover:scale-105 shadow-xl shadow-red-950/60 active:scale-95">
+                            <i class="fa-solid fa-play text-lg"></i>
+                            PLAY TRAILER
+                        </button>
+                        <a href="#chapters" class="flex items-center gap-3 bg-neutral-800/85 hover:bg-neutral-700 text-neutral-200 border border-neutral-600 px-6 py-3.5 rounded font-medium text-sm transition-all hover:text-white backdrop-blur-sm">
+                            <i class="fa-solid fa-circle-info text-base"></i>
+                            Explore Chapters
+                        </a>
+                        <button onclick="scrollToCast()" class="flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-netflixRed transition-colors ml-auto md:ml-0">
+                            <i class="fa-solid fa-users"></i> Lihat 18 Cast Siswa &darr;
+                        </button>
+                    </div>
+
+                    <!-- Top 10 Today Badge -->
+                    <div class="flex items-center gap-3 pt-2 text-xs text-neutral-400">
+                        <div class="w-7 h-7 bg-netflixRed text-white font-bebas text-lg flex items-center justify-center font-bold rounded shadow">
+                            #1
+                        </div>
+                        <span class="font-medium text-white">#1 in Most Unforgettable Memories of Bojongnangka</span>
+                    </div>
+                </div>
+
+                <!-- Right Side: Cinematic Cutout Highlight Card -->
+                <div class="lg:col-span-4 flex justify-center">
+                    <div class="relative w-full max-w-sm cut-corner-box p-4 border border-netflixRed/40 bg-gradient-to-b from-neutral-900 to-black rounded-lg shadow-2xl box-red-glow">
+                        <div class="relative overflow-hidden rounded mb-3 aspect-[4/5] bg-neutral-950 flex flex-col justify-end p-4 border border-neutral-800">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+                            
+                            <!-- Visual Banner Placeholder / Preview -->
+                            <div class="absolute inset-0 bg-cover bg-center filter contrast-125 brightness-90" style="background-image: url('https://placehold.co/600x800/180608/ffffff?text=IX+B+AL-HIDAYAH');"></div>
+
+                            <div class="relative z-20 space-y-1">
+                                <span class="bg-netflixRed text-[10px] uppercase font-mono px-2 py-0.5 rounded font-bold text-white">
+                                    THE SQUAD
+                                </span>
+                                <h3 class="font-bebas text-2xl text-white tracking-wide">KELAS IX B</h3>
+                                <p class="text-xs text-neutral-300 font-mono">MTs Al-Hidayah Bojongnangka</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center text-xs font-mono text-neutral-400 px-1 pt-1">
+                            <span class="flex items-center gap-1.5 text-neutral-300">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> 18 Jiwa • 1 Cerita
+                            </span>
+                            <span class="text-netflixRed font-semibold tracking-wider">#TANPA_NAMA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapters" class="py-20 px-4 md:px-12 max-w-7xl mx-auto space-y-16">
+            <div class="border-b border-neutral-800 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-netflixRed font-mono uppercase text-xs tracking-widest">Memory Chronicles</span>
+                    <h2 class="text-4xl md:text-5xl font-bebas tracking-wide text-white">SEASON EPISODES & CHAPTERS</h2>
+                </div>
+                <p class="text-neutral-400 text-sm max-w-md font-mono">
+                    Dokumentasi momen-momen bersejarah kelas IX B yang diadaptasi dari kisah nyata 'Victorious Things'.
+                </p>
+            </div>
+
+            <!-- Chapter 01: BAZAR CLASS (Matching reference frame) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left text column -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="flex items-baseline gap-4">
+                        <span class="font-bebas text-3xl text-neutral-400 tracking-wider">Chapter</span>
+                        <span class="font-bebas text-7xl text-white font-bold tracking-tight">01</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white tracking-wide">BAZAR CLASS</h3>
+                    <p class="text-neutral-300 text-sm leading-relaxed font-light">
+                        "bazar to celebrate the school anniversary with performances from each class and event"
+                    </p>
+                    <div class="pt-2 flex items-center gap-4 text-xs font-mono">
+                        <span class="text-neutral-500 hover:text-white cursor-pointer transition">Beginning</span>
+                        <span class="text-netflixRed font-bold border-b border-netflixRed pb-0.5 cursor-pointer">Synopsis</span>
+                        <span class="text-neutral-500 hover:text-white cursor-pointer transition" onclick="openTrailerModal('Bazar Class')">trailer &rsaquo;</span>
+                    </div>
+                </div>
+
+                <!-- Right Cut-Corner Media Box -->
+                <div class="lg:col-span-8">
+                    <div class="relative cut-corner-box p-1 bg-gradient-to-br from-netflixRed/40 via-neutral-900 to-black shadow-2xl">
+                        <div class="bg-cinematicSurface p-4 md:p-6 rounded overflow-hidden">
+                            <!-- Top metadata bar -->
+                            <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="font-bebas text-lg text-white tracking-wider">Victorious Things</span>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">EPISODE 01</span>
+                                </div>
+                                <span class="font-bebas text-netflixRed text-lg tracking-wider">NETFLIX IX-B</span>
+                            </div>
+
+                            <!-- Image & Overlay Container -->
+                            <div class="relative rounded overflow-hidden aspect-video md:aspect-[21/9] bg-neutral-950 flex items-center justify-center group">
+                                <div class="absolute inset-0 bg-cover bg-center filter grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://placehold.co/1200x600/1e0708/ffffff?text=BAZAR+CLASS+IX-B');"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30"></div>
+
+                                <!-- Big Centered Title Text (like poster) -->
+                                <div class="relative z-10 text-center">
+                                    <h4 class="font-mono text-3xl md:text-5xl font-black text-white tracking-widest drop-shadow-lg">
+                                        BAZAR CLASS
+                                    </h4>
+                                    <p class="text-xs font-mono text-neutral-300 mt-1 uppercase tracking-widest">
+                                        Perayaan Milad & Stand Makanan IX B
+                                    </p>
+                                </div>
+
+                                <!-- Floating Return / Play tag at bottom -->
+                                <div class="absolute bottom-4 left-4 z-20">
+                                    <button onclick="openTrailerModal('Bazar Class Event')" class="flex items-center gap-2 px-3 py-1 bg-netflixRed hover:bg-netflixDarkRed text-white rounded text-xs font-mono font-bold shadow-md transition">
+                                        <i class="fa-solid fa-play text-[10px]"></i> Watch Recap
+                                    </button>
+                                </div>
+
+                                <!-- Watermark icons bottom right -->
+                                <div class="absolute bottom-3 right-4 z-20 flex items-center gap-3 text-neutral-400 text-sm">
+                                    <i class="fa-brands fa-instagram hover:text-white cursor-pointer"></i>
+                                    <i class="fa-brands fa-tiktok hover:text-white cursor-pointer"></i>
+                                    <i class="fa-solid fa-camera hover:text-white cursor-pointer"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8">
+                <!-- Left Cut-Corner Media Box -->
+                <div class="lg:col-span-8 order-2 lg:order-1">
+                    <div class="relative cut-corner-reverse p-1 bg-gradient-to-br from-netflixRed/40 via-neutral-900 to-black shadow-2xl">
+                        <div class="bg-cinematicSurface p-4 md:p-6 rounded overflow-hidden">
+                            <!-- Top metadata bar -->
+                            <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="font-bebas text-lg text-white tracking-wider">Victorious Things</span>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">EPISODE 02</span>
+                                </div>
+                                <span class="font-bebas text-netflixRed text-lg tracking-wider">NETFLIX IX-B</span>
+                            </div>
+
+                            <!-- Image & Overlay Container -->
+                            <div class="relative rounded overflow-hidden aspect-video md:aspect-[21/9] bg-neutral-950 flex items-center justify-center group">
+                                <div class="absolute inset-0 bg-cover bg-center filter grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://placehold.co/1200x600/29080a/ffffff?text=CARNAVAL+WARRIORS');"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30"></div>
+
+                                <!-- Big Centered Title Text -->
+                                <div class="relative z-10 text-center">
+                                    <h4 class="font-mono text-3xl md:text-5xl font-black text-white tracking-widest drop-shadow-lg">
+                                        CARNAVAL
+                                    </h4>
+                                    <p class="text-xs font-mono text-neutral-300 mt-1 uppercase tracking-widest">
+                                        Prajurit Pejuang Kemerdekaan RI
+                                    </p>
+                                </div>
+
+                                <div class="absolute bottom-4 left-4 z-20">
+                                    <button onclick="openTrailerModal('Carnaval Episode')" class="flex items-center gap-2 px-3 py-1 bg-neutral-900/90 border border-neutral-700 hover:border-netflixRed hover:text-netflixRed text-white rounded text-xs font-mono font-bold transition">
+                                        <i class="fa-solid fa-film text-[10px]"></i> Photo Highlights
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right text column -->
+                <div class="lg:col-span-4 space-y-4 order-1 lg:order-2">
+                    <div class="flex items-baseline gap-4">
+                        <span class="font-bebas text-3xl text-neutral-400 tracking-wider">Chapter</span>
+                        <span class="font-bebas text-7xl text-white font-bold tracking-tight">02</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white tracking-wide">CARNAVAL</h3>
+                    <p class="text-neutral-300 text-sm leading-relaxed font-light">
+                        "carnaval with the theme of soldiers going to war, held during the independence event"
+                    </p>
+                    <div class="pt-2 flex items-center gap-4 text-xs font-mono">
+                        <span class="text-neutral-500 hover:text-white cursor-pointer transition">Beginning</span>
+                        <span class="text-netflixRed font-bold border-b border-netflixRed pb-0.5 cursor-pointer">Synopsis</span>
+                        <span class="text-neutral-500 hover:text-white cursor-pointer transition" onclick="openTrailerModal('Carnaval')">trailer &rsaquo;</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chapter 03 & 04 Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                <div class="bg-neutral-900/70 border border-neutral-800 hover:border-netflixRed/60 p-6 rounded-xl transition duration-300 group">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-mono text-xs text-netflixRed font-bold">CHAPTER 03</span>
+                        <span class="text-neutral-500 text-xs font-mono">SEMESTER 2</span>
+                    </div>
+                    <h4 class="font-bebas text-2xl text-white group-hover:text-netflixRed transition">CLASS MEETING DERBY</h4>
+                    <p class="text-sm text-neutral-400 mt-2 font-light">
+                        Ajang unjuk kekompakan kelas IX B di lapangan bola mini, tarik tambang, dan game inter-kelas yang penuh sorak tawa dan sportivitas tinggi.
+                    </p>
+                </div>
+
+                <div class="bg-neutral-900/70 border border-neutral-800 hover:border-netflixRed/60 p-6 rounded-xl transition duration-300 group">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-mono text-xs text-netflixRed font-bold">CHAPTER 04</span>
+                        <span class="text-neutral-500 text-xs font-mono">THE FINALE</span>
+                    </div>
+                    <h4 class="font-bebas text-2xl text-white group-hover:text-netflixRed transition">PERPISAHAN & WISUDA KELAS IX</h4>
+                    <p class="text-sm text-neutral-400 mt-2 font-light">
+                        Puncak perjalanan 3 tahun di MTs Al-Hidayah Bojongnangka. Saat gerbang baru terbuka, namun ikatan 'TANPA NAMA' tetap abadi di hati.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cast" class="py-20 px-4 md:px-12 bg-neutral-950/70 border-t border-b border-neutral-900">
+            <div class="max-w-7xl mx-auto space-y-8">
+                <!-- Section Header with Search and Filter Controls -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-netflixRed rounded-sm"></span>
+                            <span class="text-netflixRed font-mono uppercase text-xs tracking-widest">Main Cast & Characters</span>
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-bebas tracking-wide text-white mt-1">
+                            THE 18 CAST MEMBERS (ROSTER IX B)
+                        </h2>
+                        <p class="text-neutral-400 text-sm font-mono mt-1">
+                            Foto asli siswa telah disinkronkan. Klik kartu untuk melihat profil karakter sinematik.
+                        </p>
+                    </div>
+
+                    <!-- Search & Filter Controls -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- Live Search Bar -->
+                        <div class="relative w-full sm:w-56">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs"></i>
+                            <input 
+                                type="text" 
+                                id="student-search" 
+                                oninput="handleSearch(this.value)" 
+                                placeholder="Cari nama siswa..." 
+                                class="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-netflixRed transition font-mono"
+                            />
+                        </div>
+
+                        <!-- Gender Filters -->
+                        <div class="flex items-center gap-1 bg-neutral-900 p-1 rounded-lg border border-neutral-800 text-xs font-mono">
+                            <button onclick="filterStudents('all')" class="filter-btn active px-3 py-1.5 rounded text-white bg-netflixRed" data-filter="all">Semua (18)</button>
+                            <button onclick="filterStudents('putra')" class="filter-btn px-3 py-1.5 rounded text-neutral-400 hover:text-white" data-filter="putra">Putra</button>
+                            <button onclick="filterStudents('putri')" class="filter-btn px-3 py-1.5 rounded text-neutral-400 hover:text-white" data-filter="putri">Putri</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students Grid (18 Complete Cards mapped to real photos) -->
+                <div id="students-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5">
+                    <!-- Dynamic rendering via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="schedule" class="py-20 px-4 md:px-12 max-w-7xl mx-auto space-y-12">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="text-netflixRed font-mono uppercase text-xs tracking-widest">Organized Timetable</span>
+                <h2 class="text-4xl md:text-5xl font-bebas tracking-wide text-white">JADWAL PELAJARAN & PIKET KELAS</h2>
+                <p class="text-neutral-400 text-sm">
+                    Pilih hari untuk melihat jadwal mata pelajaran Kelas IX B dan daftar siswa yang bertugas piket kebersihan.
+                </p>
+            </div>
+
+            <!-- Days Tabs (Senin - Sabtu) -->
+            <div class="flex justify-center flex-wrap gap-2 md:gap-3">
+                <button onclick="selectDaySchedule('senin')" class="day-tab active px-5 py-2.5 rounded-full border border-netflixRed bg-netflixRed text-sm font-semibold text-white transition" data-day="senin">
+                    Senin
+                </button>
+                <button onclick="selectDaySchedule('selasa')" class="day-tab px-5 py-2.5 rounded-full border border-neutral-700 bg-neutral-900 text-sm font-semibold text-neutral-400 hover:text-white hover:border-netflixRed transition" data-day="selasa">
+                    Selasa
+                </button>
+                <button onclick="selectDaySchedule('rabu')" class="day-tab px-5 py-2.5 rounded-full border border-neutral-700 bg-neutral-900 text-sm font-semibold text-neutral-400 hover:text-white hover:border-netflixRed transition" data-day="rabu">
+                    Rabu
+                </button>
+                <button onclick="selectDaySchedule('kamis')" class="day-tab px-5 py-2.5 rounded-full border border-neutral-700 bg-neutral-900 text-sm font-semibold text-neutral-400 hover:text-white hover:border-netflixRed transition" data-day="kamis">
+                    Kamis
+                </button>
+                <button onclick="selectDaySchedule('jumat')" class="day-tab px-5 py-2.5 rounded-full border border-neutral-700 bg-neutral-900 text-sm font-semibold text-neutral-400 hover:text-white hover:border-netflixRed transition" data-day="jumat">
+                    Jum'at
+                </button>
+                <button onclick="selectDaySchedule('sabtu')" class="day-tab px-5 py-2.5 rounded-full border border-neutral-700 bg-neutral-900 text-sm font-semibold text-neutral-400 hover:text-white hover:border-netflixRed transition" data-day="sabtu">
+                    Sabtu
+                </button>
+            </div>
+
+            <!-- Active Day Content Card -->
+            <div id="day-schedule-card" class="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-6 md:p-8 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-36 h-36 bg-netflixRed/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                <!-- Left: Mata Pelajaran -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 border-b border-neutral-800 pb-3">
+                        <i class="fa-solid fa-book-open text-netflixRed"></i>
+                        <h4 class="font-bebas text-xl text-white tracking-wider">MATA PELAJARAN</h4>
+                        <span id="active-day-label" class="ml-auto font-mono text-xs px-2 py-0.5 rounded bg-neutral-800 text-neutral-300 uppercase">SENIN</span>
+                    </div>
+                    <ul id="subjects-list" class="space-y-3 text-sm">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+
+                <!-- Right: Jadwal Piket Kebersihan -->
+                <div class="space-y-4 md:border-l md:border-neutral-800 md:pl-8">
+                    <div class="flex items-center gap-2 border-b border-neutral-800 pb-3">
+                        <i class="fa-solid fa-broom text-amber-500"></i>
+                        <h4 class="font-bebas text-xl text-white tracking-wider">TIM PIKET KEBERSIHAN</h4>
+                    </div>
+                    <p class="text-xs text-neutral-400 font-mono">Wajib membersihkan ruang kelas sebelum bel masuk dan setelah jam pulang.</p>
+                    <div id="piket-list" class="grid grid-cols-1 gap-2.5 pt-1">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="structure" class="py-20 px-4 md:px-12 bg-neutral-950/80 border-t border-neutral-900">
+            <div class="max-w-6xl mx-auto space-y-12">
+                <div class="text-center space-y-2">
+                    <span class="text-netflixRed font-mono uppercase text-xs tracking-widest">Leadership Crew</span>
+                    <h2 class="text-4xl md:text-5xl font-bebas tracking-wide text-white">STRUKTUR ORGANISASI KELAS</h2>
+                    <p class="text-neutral-400 text-sm max-w-xl mx-auto">
+                        Pilar penggerak kepemimpinan, ketertiban, dan kebersamaan di Kelas IX B 'TANPA NAMA'.
+                    </p>
+                </div>
+
+                <!-- Hierarchy Cards -->
+                <div class="space-y-8">
+                    <!-- Wali Kelas -->
+                    <div class="flex justify-center">
+                        <div class="w-full max-w-md bg-neutral-900 border-2 border-netflixRed/50 p-6 rounded-xl text-center space-y-2 shadow-xl shadow-red-950/20 relative group hover:border-netflixRed transition">
+                            <span class="inline-block bg-netflixRed text-white text-[11px] font-mono uppercase font-bold px-3 py-0.5 rounded-full">
+                                Wali Kelas IX B
+                            </span>
+                            <h3 class="font-bebas text-2xl md:text-3xl text-white tracking-wide">BAPAK / IBU WALI KELAS</h3>
+                            <p class="text-xs text-neutral-400 font-mono">Pembimbing & Pendidik Setia Generasi IX B</p>
+                            <p class="text-xs text-neutral-300 italic pt-1">"Bimbingan dengan hati, mengantarkan generasi menuju mimpi."</p>
+                        </div>
+                    </div>
+
+                    <!-- Ketua & Wakil Ketua Kelas -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                        <div class="bg-neutral-900 border border-neutral-800 hover:border-netflixRed/70 p-5 rounded-xl text-center space-y-2 transition">
+                            <span class="text-[10px] font-mono text-netflixRed uppercase font-bold px-2 py-0.5 rounded bg-netflixRed/10 border border-netflixRed/30">
+                                Ketua Kelas
+                            </span>
+                            <h4 class="font-bebas text-2xl text-white tracking-wide">IKHSAN FAUZI NUR ARIFIN</h4>
+                            <p class="text-xs text-neutral-400 font-mono">Nakhoda & Juru Bicara IX B</p>
+                        </div>
+
+                        <div class="bg-neutral-900 border border-neutral-800 hover:border-netflixRed/70 p-5 rounded-xl text-center space-y-2 transition">
+                            <span class="text-[10px] font-mono text-neutral-300 uppercase font-bold px-2 py-0.5 rounded bg-neutral-800 border border-neutral-700">
+                                Wakil Ketua Kelas
+                            </span>
+                            <h4 class="font-bebas text-2xl text-white tracking-wide">FAUZAN HIDAYATUR ROFI</h4>
+                            <p class="text-xs text-neutral-400 font-mono">Pendamping & Pengayom Siswa</p>
+                        </div>
+                    </div>
+
+                    <!-- Sekretaris & Bendahara -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                        <div class="bg-neutral-900/70 border border-neutral-800 p-4 rounded-lg text-center space-y-1">
+                            <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase">Sekretaris I</span>
+                            <h5 class="font-bold text-white text-sm">AGNIA RENATA</h5>
+                            <p class="text-[11px] text-neutral-400 font-mono">Notulensi & Absensi</p>
+                        </div>
+                        <div class="bg-neutral-900/70 border border-neutral-800 p-4 rounded-lg text-center space-y-1">
+                            <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase">Sekretaris II</span>
+                            <h5 class="font-bold text-white text-sm">ALDA SRI WAHYUNI</h5>
+                            <p class="text-[11px] text-neutral-400 font-mono">Arsip & Dokumen</p>
+                        </div>
+                        <div class="bg-neutral-900/70 border border-neutral-800 p-4 rounded-lg text-center space-y-1">
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">Bendahara I</span>
+                            <h5 class="font-bold text-white text-sm">ALIYA NURKHOFIFAH</h5>
+                            <p class="text-[11px] text-neutral-400 font-mono">Kas & Pembukuan</p>
+                        </div>
+                        <div class="bg-neutral-900/70 border border-neutral-800 p-4 rounded-lg text-center space-y-1">
+                            <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">Bendahara II</span>
+                            <h5 class="font-bold text-white text-sm">GEA ADILA RAHAYU</h5>
+                            <p class="text-[11px] text-neutral-400 font-mono">Logistik & Keuangan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="memories" class="py-20 px-4 md:px-12 max-w-7xl mx-auto space-y-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-800 pb-4">
+                <div>
+                    <span class="text-netflixRed font-mono uppercase text-xs tracking-widest">Time Capsule</span>
+                    <h2 class="text-4xl md:text-5xl font-bebas tracking-wide text-white">PESAN & KAPSUL WAKTU IX B</h2>
+                </div>
+                <p class="text-neutral-400 text-sm max-w-md">
+                    Tuliskan pesan kenangan, kesan, atau doa untuk teman-teman sekelas. Pesan akan tersimpan langsung di browser Anda.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Form Submission -->
+                <div class="lg:col-span-5 bg-neutral-900 border border-neutral-800 p-6 rounded-2xl space-y-4 shadow-xl">
+                    <h3 class="font-bebas text-2xl text-white tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-pen-nib text-netflixRed text-lg"></i> Tulis Pesan Kenangan
+                    </h3>
+
+                    <form id="memory-form" onsubmit="submitMemory(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono text-neutral-300 mb-1">Nama Kamu / Alias</label>
+                            <input type="text" id="memory-author" required placeholder="Contoh: Wildanul / Teman Sebangku" class="w-full bg-neutral-950 border border-neutral-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-netflixRed transition">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-neutral-300 mb-1">Pilih Mood Pesan</label>
+                            <select id="memory-mood" class="w-full bg-neutral-950 border border-neutral-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-netflixRed transition">
+                                <option value="❤️ Bangga & Terharu">❤️ Bangga & Terharu</option>
+                                <option value="🔥 Semangat Menyala">🔥 Semangat Menyala</option>
+                                <option value="😂 Momen Kocak">😂 Kenangan Kocak</option>
+                                <option value="✨ Sukses Selalu">✨ Harapan Sukses</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-neutral-300 mb-1">Isi Pesan Kenangan</label>
+                            <textarea id="memory-text" required rows="3" placeholder="Tuliskan ucapan atau kenangan terindahmu bersama Kelas IX B..." class="w-full bg-neutral-950 border border-neutral-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-netflixRed transition"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-netflixRed hover:bg-netflixDarkRed text-white py-3 rounded-lg font-bold text-sm tracking-wide uppercase transition shadow-lg shadow-red-950/40">
+                            Kirim ke Kapsul Waktu
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Display Messages Board -->
+                <div class="lg:col-span-7">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-bebas text-xl text-neutral-300 tracking-wider">
+                            Pesan Tersimpan (<span id="memory-count">0</span>)
+                        </h4>
+                        <button onclick="clearCustomMemories()" class="text-xs text-neutral-500 hover:text-netflixRed font-mono transition">
+                            Reset ke Default
+                        </button>
+                    </div>
+
+                    <div id="memories-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[460px] overflow-y-auto pr-2">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 px-4 md:px-12 bg-neutral-950 border-t border-neutral-900">
+            <div class="max-w-4xl mx-auto bg-neutral-900/90 border border-neutral-800 rounded-2xl p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+                <!-- Track Details -->
+                <div class="flex items-center gap-4 w-full md:w-auto">
+                    <div class="w-14 h-14 bg-gradient-to-tr from-netflixRed to-neutral-800 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0 relative overflow-hidden">
+                        <i class="fa-solid fa-music text-xl"></i>
+                        <div id="soundwave" class="absolute bottom-1 flex gap-0.5 items-end h-3 hidden">
+                            <span class="w-1 bg-white animate-pulse h-2"></span>
+                            <span class="w-1 bg-white animate-pulse h-3"></span>
+                            <span class="w-1 bg-white animate-pulse h-1"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-mono text-netflixRed uppercase font-bold tracking-wider">CLASS ANTHEM</span>
+                            <span class="text-[10px] text-neutral-500 font-mono">• IX-B SOUNDTRACK</span>
+                        </div>
+                        <h4 class="text-white font-bold text-base md:text-lg">Ingatlah Hari Ini (Nostalgia 9B)</h4>
+                        <p class="text-xs text-neutral-400">MTs Al-Hidayah Bojongnangka • Kenangan Selamanya</p>
+                    </div>
+                </div>
+
+                <!-- Web Audio Synthesizer BGM Controls -->
+                <div class="flex items-center gap-4 w-full md:w-auto justify-end">
+                    <button id="bgm-play-btn" onclick="toggleClassBgm()" class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 font-bold text-xs uppercase tracking-wider transition shadow-lg">
+                        <i id="bgm-icon" class="fa-solid fa-play"></i>
+                        <span id="bgm-label">Play Synth Soundtrack</span>
+                    </button>
+                    <span class="text-xs font-mono text-neutral-400 hidden sm:inline" id="bgm-status">Audio Ready</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black py-12 px-4 md:px-12 border-t border-neutral-900 text-neutral-500 text-xs font-mono">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div class="space-y-1">
+                <p class="font-bebas text-2xl text-netflixRed tracking-wider font-bold">TANPA NAMA • IX B</p>
+                <p>MTs Al-Hidayah Bojongnangka • Angkatan 2023/2024</p>
+                <p class="text-[11px] text-neutral-600">Desain sinematik "Victorious Things" terinspirasi dari karya @cafejaerk</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#hero" class="hover:text-netflixRed transition">Home</a>
+                <a href="#cast" class="hover:text-netflixRed transition">Cast List</a>
+                <a href="#chapters" class="hover:text-netflixRed transition">Chapters</a>
+                <button onclick="toggleDeployModal(true)" class="hover:text-netflixRed transition">Panduan Deploy</button>
+            </div>
+
+            <div>
+                <p>&copy; 2024 KELAS IX B. All Memories Preserved Forever.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal: Cinematic Trailer & Recap -->
+    <div id="trailer-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="relative w-full max-w-4xl bg-neutral-950 border border-netflixRed/50 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="p-4 bg-neutral-900 flex items-center justify-between border-b border-neutral-800">
+                <div class="flex items-center gap-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-netflixRed animate-ping"></span>
+                    <span id="trailer-title" class="font-bebas text-2xl text-white tracking-wide">VICTORIOUS THINGS: OFFICIAL RECAP</span>
+                </div>
+                <button onclick="closeTrailerModal()" class="text-neutral-400 hover:text-white text-2xl px-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-neutral-800 flex items-center justify-center text-center p-6">
+                    <div id="trailer-screen" class="space-y-3 z-10 transition-all duration-500">
+                        <span class="text-netflixRed text-xs font-mono font-bold uppercase tracking-widest">CHAPTER HIGHLIGHT</span>
+                        <h3 id="trailer-screen-title" class="font-bebas text-3xl md:text-5xl text-white">KEBERSAMAAN KELAS IX B</h3>
+                        <p id="trailer-screen-desc" class="text-neutral-300 text-sm md:text-base max-w-xl mx-auto italic">
+                            "Masa-masa penuh canda, perjuangan di kelas, dan persaudaraan tanpa sekat di MTs Al-Hidayah Bojongnangka."
+                        </p>
+                    </div>
+                    <div class="absolute inset-0 bg-radial from-red-950/40 via-transparent to-black pointer-events-none"></div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex gap-2">
+                        <button onclick="changeSlide(0)" class="slide-indicator w-3 h-3 rounded-full bg-netflixRed"></button>
+                        <button onclick="changeSlide(1)" class="slide-indicator w-3 h-3 rounded-full bg-neutral-700"></button>
+                        <button onclick="changeSlide(2)" class="slide-indicator w-3 h-3 rounded-full bg-neutral-700"></button>
+                    </div>
+
+                    <button onclick="closeTrailerModal()" class="px-5 py-2 rounded bg-neutral-800 hover:bg-neutral-700 text-xs font-mono text-white transition">
+                        Tutup Pemutar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Student Profile Details -->
+    <div id="profile-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="relative w-full max-w-lg bg-neutral-900 border border-netflixRed/50 rounded-2xl overflow-hidden shadow-2xl p-6 space-y-5">
+            <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-4">
+                <div id="modal-student-avatar" class="w-20 h-20 rounded-full border-2 border-netflixRed overflow-hidden bg-neutral-950 flex-shrink-0">
+                    <img id="modal-student-img" src="" alt="Student Avatar" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span id="modal-student-role" class="text-[10px] font-mono px-2 py-0.5 rounded bg-netflixRed/20 border border-netflixRed/40 text-netflixRed font-bold uppercase">
+                        Siswa IX B
+                    </span>
+                    <h3 id="modal-student-name" class="font-bebas text-3xl text-white tracking-wide mt-1">NAMA SISWA</h3>
+                    <p class="text-xs text-neutral-400 font-mono">MTs Al-Hidayah Bojongnangka</p>
+                </div>
+            </div>
+
+            <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800 space-y-2">
+                <span class="text-[11px] font-mono text-neutral-400 uppercase">Kutipan / Motto Hidup:</span>
+                <p id="modal-student-quote" class="text-sm text-neutral-200 italic">"Belajar tanpa henti, bersyukur tiada tara."</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                <div class="bg-neutral-800/50 p-3 rounded-lg border border-neutral-800">
+                    <span class="text-neutral-500 block">Karakter Khas:</span>
+                    <span id="modal-student-trait" class="text-white font-semibold">Ceria & Pekerja Keras</span>
+                </div>
+                <div class="bg-neutral-800/50 p-3 rounded-lg border border-neutral-800">
+                    <span class="text-neutral-500 block">Status:</span>
+                    <span class="text-emerald-400 font-semibold">Active Cast Member</span>
+                </div>
+            </div>
+
+            <button onclick="closeProfileModal()" class="w-full bg-neutral-800 hover:bg-neutral-700 text-white py-2.5 rounded-lg text-xs font-mono uppercase tracking-wider transition">
+                Tutup Profil
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal: GitHub & Vercel Deployment Instructions -->
+    <div id="deploy-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="relative w-full max-w-2xl bg-neutral-950 border border-netflixRed/50 rounded-2xl overflow-hidden shadow-2xl p-6 md:p-8 space-y-6">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <div class="flex items-center gap-3">
+                    <i class="fa-brands fa-github text-2xl text-netflixRed"></i>
+                    <h3 class="font-bebas text-2xl text-white tracking-wide">PANDUAN STRUKTUR FILE GITHUB & VERCEL</h3>
+                </div>
+                <button onclick="toggleDeployModal(false)" class="text-neutral-400 hover:text-white text-2xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 text-sm text-neutral-300">
+                <p class="leading-relaxed">
+                    Agar foto yang Anda kirimkan langsung muncul di website ketika di-deploy ke Vercel via GitHub, simpan file-file foto tersebut di satu folder yang sama dengan <code class="text-white">index.html</code> (atau di folder <code class="text-white">photos/</code>) dengan nama persis seperti berikut:
+                </p>
+
+                <div class="bg-neutral-900 p-4 rounded-xl border border-neutral-800 space-y-2 font-mono text-xs overflow-x-auto max-h-60">
+                    <div class="text-emerald-400 font-bold mb-1">// Daftar Nama File Foto Siswa yang Tersinkron:</div>
+                    <div>• <code>agnia.jpg</code> (AGNIA RENATA)</div>
+                    <div>• <code>alda.jpg</code> (ALDA SRI WAHYUNI)</div>
+                    <div>• <code>Gea.jpg</code> (GEA ADILA RAHAYU)</div>
+                    <div>• <code>Gina.png</code> (GINA KURNIAWATI)</div>
+                    <div>• <code>IKHSAN.jpg</code> (IKHSAN FAUZI NUR ARIFIN)</div>
+                    <div>• <code>ilham.jpg</code> (ILHAM FIRMANSYAH)</div>
+                    <div>• <code>intan.webp</code> (INTAN NURHAKIM)</div>
+                    <div>• <code>mahesa.webp</code> (MAHESA RAMADHAN)</div>
+                    <div>• <code>naja.jpg</code> (NAJA HUMUMI)</div>
+                    <div>• <code>rafa.jpg</code> (MUHAMMAD RAFA ANGGARA)</div>
+                    <div>• <code>renita.png</code> (RENITA AULIA RAMADANI)</div>
+                    <div>• <code>reza.jpg</code> (REZA DARMAWAN)</div>
+                    <div>• <code>RIOOOOO MADEPPP.jpg</code> (RIO FATHAN AHMAD MUHAROM)</div>
+                    <div>• <code>bayan.webp</code> (SANI NURBAYANI)</div>
+                    <div>• <code>wildan.jpg</code> (WILDANUL HAKIM)</div>
+                    <div class="text-neutral-500 pt-2">• Untuk ADE HIDAYAT, ALIYA NURKHOFIFAH, dan FAUZAN HIDAYATUR ROFI dapat disimpan sebagai <code>ade.jpg</code>, <code>aliya.jpg</code>, dan <code>fauzan.jpg</code> atau <code>[NAMA LENGKAP].jpg</code>.</div>
+                </div>
+            </div>
+
+            <button onclick="toggleDeployModal(false)" class="w-full bg-netflixRed hover:bg-netflixDarkRed text-white py-2.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition">
+                Saya Mengerti
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-neutral-900 border-l-4 border-netflixRed text-white px-5 py-3 rounded-lg shadow-2xl text-xs font-mono flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-bell text-netflixRed"></i>
+        <span id="toast-message">Notifikasi</span>
+    </div>
+
+    <script>
+        /* Ambient Dust/Embers Particles Engine */
+        const canvas = document.getElementById('dust-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 20;
+                this.size = Math.random() * 2.2 + 0.5;
+                this.speedY = Math.random() * 0.7 + 0.2;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.5 + 0.15;
+                this.isRed = Math.random() > 0.35;
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                if (this.y < -10) this.reset();
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.isRed 
+                    ? `rgba(229, 9, 20, ${this.opacity})` 
+                    : `rgba(255, 255, 255, ${this.opacity * 0.5})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            const p = new Particle();
+            p.y = Math.random() * canvas.height;
+            particles.push(p);
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playTudumSound() {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                // Sub-Bass Punch (The 'TU' Impact)
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'triangle';
+                osc1.frequency.setValueAtTime(65, now);
+                osc1.frequency.exponentialRampToValueAtTime(32, now + 0.6);
+
+                gain1.gain.setValueAtTime(0.85, now);
+                gain1.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+
+                // High Brass / Metallic Resonant Swell (The 'DUMMM' Swell)
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'sawtooth';
+                osc2.frequency.setValueAtTime(110, now + 0.15);
+                osc2.frequency.exponentialRampToValueAtTime(55, now + 2.0);
+
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(350, now);
+                filter.frequency.exponentialRampToValueAtTime(80, now + 2.2);
+
+                gain2.gain.setValueAtTime(0.01, now);
+                gain2.gain.setValueAtTime(0.65, now + 0.18);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + 2.4);
+
+                osc2.connect(filter);
+                filter.connect(gain2);
+                gain2.connect(ctx.destination);
+
+                osc1.start(now);
+                osc1.stop(now + 1.4);
+                osc2.start(now + 0.15);
+                osc2.stop(now + 2.5);
+
+                showToast("▶ TUDUM Cinematic Audio Diputar!");
+            } catch (err) {
+                console.error("Audio error: ", err);
+            }
+        }
+
+        let bgmIsPlaying = false;
+        let bgmInterval = null;
+
+        function toggleClassBgm() {
+            const ctx = getAudioContext();
+            const btnLabel = document.getElementById('bgm-label');
+            const btnIcon = document.getElementById('bgm-icon');
+            const soundwave = document.getElementById('soundwave');
+            const bgmStatus = document.getElementById('bgm-status');
+
+            if (!bgmIsPlaying) {
+                bgmIsPlaying = true;
+                btnLabel.textContent = "Pause Synth Soundtrack";
+                btnIcon.className = "fa-solid fa-pause";
+                soundwave.classList.remove('hidden');
+                bgmStatus.textContent = "Playing Nostalgia Beats";
+                showToast("🎵 Soundtrack Lo-Fi IX B Berputar");
+
+                const chords = [
+                    [174.61, 220.00, 261.63], // F major
+                    [130.81, 164.81, 196.00], // C major
+                    [146.83, 174.61, 220.00], // D minor
+                    [116.54, 146.83, 174.61]  // Bb major
+                ];
+                let chordIndex = 0;
+
+                const playChord = () => {
+                    if (!bgmIsPlaying) return;
+                    const chord = chords[chordIndex];
+                    const now = ctx.currentTime;
+
+                    chord.forEach((freq) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq * 1.5, now);
+
+                        gain.gain.setValueAtTime(0.001, now);
+                        gain.gain.linearRampToValueAtTime(0.05, now + 0.4);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.2);
+
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+
+                        osc.start(now);
+                        osc.stop(now + 2.3);
+                    });
+
+                    chordIndex = (chordIndex + 1) % chords.length;
+                };
+
+                playChord();
+                bgmInterval = setInterval(playChord, 2400);
+
+            } else {
+                bgmIsPlaying = false;
+                clearInterval(bgmInterval);
+                btnLabel.textContent = "Play Synth Soundtrack";
+                btnIcon.className = "fa-solid fa-play";
+                soundwave.classList.add('hidden');
+                bgmStatus.textContent = "Audio Paused";
+            }
+        }
+
+        const studentsData = [
+            { 
+                id: 1, 
+                name: "ADE HIDAYAT", 
+                gender: "putra", 
+                role: "Cast Member", 
+                photo: "ade.jpg", 
+                altPhoto: "photos/ADE HIDAYAT.jpg",
+                quote: "Tenang tapi selalu menghadirkan ide-ide kreatif untuk kelas.", 
+                trait: "Solutif & Ramah" 
+            },
+            { 
+                id: 2, 
+                name: "AGNIA RENATA", 
+                gender: "putri", 
+                role: "Sekretaris I", 
+                photo: "agnia.jpg", 
+                altPhoto: "photos/AGNIA RENATA.jpg",
+                quote: "Ketelitian dalam setiap lembar kenangan dan tugas kelas.", 
+                trait: "Teliti & Tangkas" 
+            },
+            { 
+                id: 3, 
+                name: "ALDA SRI WAHYUNI", 
+                gender: "putri", 
+                role: "Sekretaris II", 
+                photo: "alda.jpg", 
+                altPhoto: "photos/ALDA SRI WAHYUNI.jpg",
+                quote: "Senyuman manis peredam hiruk-pikuk kelas IX B.", 
+                trait: "Sabar & Cekatan" 
+            },
+            { 
+                id: 4, 
+                name: "ALIYA NURKHOFIFAH", 
+                gender: "putri", 
+                role: "Bendahara I", 
+                photo: "aliya.jpg", 
+                altPhoto: "photos/ALIYA NURKHOFIFAH.jpg",
+                quote: "Uang kas aman, persaudaraan IX B makin nyaman.", 
+                trait: "Amanah & Ceria" 
+            },
+            { 
+                id: 5, 
+                name: "FAUZAN HIDAYATUR ROFI", 
+                gender: "putra", 
+                role: "Wakil Ketua", 
+                photo: "fauzan.jpg", 
+                altPhoto: "photos/FAUZAN HIDAYATUR ROFI.jpg",
+                quote: "Selalu siap siaga kapanpun kelas membutuhkan perlindungan.", 
+                trait: "Tegas & Humoris" 
+            },
+            { 
+                id: 6, 
+                name: "GEA ADILA RAHAYU", 
+                gender: "putri", 
+                role: "Bendahara II", 
+                photo: "Gea.jpg", 
+                altPhoto: "photos/GEA ADILA RAHAYU.jpg",
+                quote: "Kekompakan kelas berawal dari rasa saling peduli dan keterbukaan.", 
+                trait: "Hangat & Bersahabat" 
+            },
+            { 
+                id: 7, 
+                name: "GINA KURNIAWATI", 
+                gender: "putri", 
+                role: "Cast Member", 
+                photo: "Gina.png", 
+                altPhoto: "photos/GINA KURNIAWATI.png",
+                quote: "Belajar bersama, tertawa bersama selamanya di Bojongnangka.", 
+                trait: "Ceria & Pengertian" 
+            },
+            { 
+                id: 8, 
+                name: "IKHSAN FAUZI NUR ARIFIN", 
+                gender: "putra", 
+                role: "Ketua Kelas", 
+                photo: "IKHSAN.jpg", 
+                altPhoto: "photos/IKHSAN FAUZI NUR ARIFIN.jpg",
+                quote: "Nakhoda IX B: Menjaga kapal tetap berlayar solid walau badai menerpa.", 
+                trait: "Pemimpin & Berani" 
+            },
+            { 
+                id: 9, 
+                name: "ILHAM FIRMANSYAH", 
+                gender: "putra", 
+                role: "Cast Member", 
+                photo: "ilham.jpg", 
+                altPhoto: "photos/ILHAM FIRMANSYAH.jpg",
+                quote: "Kehangatan obrolan santai di pojok kelas tak akan tergantikan.", 
+                trait: "Spontan & Santai" 
+            },
+            { 
+                id: 10, 
+                name: "INTAN NURHAKIM", 
+                gender: "putri", 
+                role: "Cast Member", 
+                photo: "intan.webp", 
+                altPhoto: "photos/INTAN NURHAKIM.webp",
+                quote: "Kebaikan kecil selalu membawa memori besar yang abadi.", 
+                trait: "Anggun & Kreatif" 
+            },
+            { 
+                id: 11, 
+                name: "MAHESA RAMADHAN", 
+                gender: "putra", 
+                role: "Cast Member", 
+                photo: "mahesa.webp", 
+                altPhoto: "photos/MAHESA RAMADHAN.webp",
+                quote: "Semangat menyala dan candaan yang selalu mencairkan suasana.", 
+                trait: "Aktif & Energik" 
+            },
+            { 
+                id: 12, 
+                name: "NAJA HUMUMI", 
+                gender: "putri", 
+                role: "Cast Member", 
+                photo: "naja.jpg", 
+                altPhoto: "photos/NAJA HUMUMI.jpg",
+                quote: "Momen kebersamaan adalah harta paling berharga dalam hidup.", 
+                trait: "Setia Kawan & Jujur" 
+            },
+            { 
+                id: 13, 
+                name: "MUHAMMAD RAFA ANGGARA", 
+                gender: "putra", 
+                role: "Cast Member", 
+                photo: "rafa.jpg", 
+                altPhoto: "photos/MUHAMMAD RAFA ANGGARA.jpg",
+                quote: "Selalu ada tawa dan ekspresi unik di setiap langkah perjalanan kita.", 
+                trait: "Kocak & Percaya Diri" 
+            },
+            { 
+                id: 14, 
+                name: "RENITA AULIA RAMADANI", 
+                gender: "putri", 
+                role: "Cast Member", 
+                photo: "renita.png", 
+                altPhoto: "photos/RENITA AULIA RAMADANI.png",
+                quote: "Indahnya masa MTs bersama sahabat terbaik di Kelas IX B.", 
+                trait: "Penyayang & Santun" 
+            },
+            { 
+                id: 15, 
+                name: "REZA DARMAWAN", 
+                gender: "putra", 
+                role: "Cast Member", 
+                photo: "reza.jpg", 
+                altPhoto: "photos/REZA DARMAWAN.jpg",
+                quote: "Kekompakan dan solidaritas adalah kunci kehormatan kita.", 
+                trait: "Fokus & Solid" 
+            },
+            { 
+                id: 16, 
+                name: "RIO FATHAN AHMAD MUHAROM", 
+                gender: "putra", 
+                role: "Cast Member", 
+                photo: "RIOOOOO MADEPPP.jpg", 
+                altPhoto: "photos/RIO FATHAN AHMAD MUHAROM.jpg",
+                quote: "Gas terus pantang mundur! Selalu siap dalam setiap petualangan.", 
+                trait: "Pemberani & Asik" 
+            },
+            { 
+                id: 17, 
+                name: "SANI NURBAYANI", 
+                gender: "putri", 
+                role: "Cast Member", 
+                photo: "bayan.webp", 
+                altPhoto: "photos/SANI NURBAYANI.webp",
+                quote: "Kebahagiaan sederhana bersemi dari ketulusan hati sesama teman.", 
+                trait: "Lembut & Penuh Semangat" 
+            },
+            { 
+                id: 18, 
+                name: "WILDANUL HAKIM", 
+                gender: "putra", 
+                role: "Cast Member", 
+                photo: "wildan.jpg", 
+                altPhoto: "photos/WILDANUL HAKIM.jpg",
+                quote: "Biarlah nama kita tanpa nama, tapi karya dan kebersamaan kita abadi.", 
+                trait: "Cerdas & Karismatik" 
+            }
+        ];
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        function renderStudents() {
+            const grid = document.getElementById('students-grid');
+            grid.innerHTML = '';
+
+            const filtered = studentsData.filter(student => {
+                const matchesFilter = currentFilter === 'all' || student.gender === currentFilter;
+                const matchesSearch = student.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      student.role.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-neutral-500 font-mono">
+                        <i class="fa-solid fa-ghost text-3xl mb-2 text-netflixRed"></i>
+                        <p>Tidak ada murid yang cocok dengan pencarian "${searchQuery}"</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(student => {
+                const card = document.createElement('div');
+                card.className = "group relative bg-neutral-900 border border-neutral-800 hover:border-netflixRed rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-red-950/40 cursor-pointer";
+                
+                card.onclick = () => openProfileModal(student);
+
+                // Multiple fallback attempts: root filename -> photos/ folder -> stylized SVG placeholder
+                card.innerHTML = `
+                    <div class="relative aspect-[3/4] bg-neutral-950 overflow-hidden">
+                        <img 
+                            src="${student.photo}" 
+                            alt="${student.name}" 
+                            onerror="if (this.src.indexOf('${student.altPhoto}') === -1) { this.src='${student.altPhoto}'; } else { this.onerror=null; this.src='https://placehold.co/400x533/141414/e50914?text=${encodeURIComponent(student.name)}'; }"
+                            class="w-full h-full object-cover filter contrast-105 group-hover:scale-105 group-hover:contrast-115 transition-transform duration-500"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+                        
+                        <div class="absolute top-2 left-2 z-10">
+                            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/75 border border-neutral-700 text-neutral-300">
+                                ${student.role.includes('Ketua') || student.role.includes('Wakil') || student.role.includes('Bendahara') || student.role.includes('Sekretaris') ? '⭐ ' + student.role : 'CAST'}
+                            </span>
+                        </div>
+
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 z-20">
+                            <span class="px-3 py-1 bg-netflixRed text-white text-[10px] font-mono font-bold rounded-full uppercase tracking-wider shadow-lg">
+                                Profil Siswa
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-neutral-900 border-t border-neutral-800/80 space-y-1">
+                        <h4 class="font-bebas text-lg text-white tracking-wide truncate group-hover:text-netflixRed transition">
+                            ${student.name}
+                        </h4>
+                        <p class="text-[10px] text-neutral-400 font-mono truncate">
+                            "${student.quote}"
+                        </p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function handleSearch(val) {
+            searchQuery = val.trim();
+            renderStudents();
+        }
+
+        function filterStudents(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.className = "filter-btn active px-3 py-1.5 rounded text-white bg-netflixRed";
+                } else {
+                    btn.className = "filter-btn px-3 py-1.5 rounded text-neutral-400 hover:text-white";
+                }
+            });
+            renderStudents();
+        }
+
+        const scheduleData = {
+            senin: {
+                day: "Senin",
+                subjects: [
+                    { time: "07.00 - 07.45", name: "Upacara Bendera Merah Putih" },
+                    { time: "07.45 - 09.05", name: "Al-Qur'an Hadits" },
+                    { time: "09.05 - 10.25", name: "Bahasa Indonesia" },
+                    { time: "10.45 - 12.00", name: "Matematika" }
+                ],
+                piket: ["ADE HIDAYAT", "AGNIA RENATA", "ALDA SRI WAHYUNI"]
+            },
+            selasa: {
+                day: "Selasa",
+                subjects: [
+                    { time: "07.15 - 08.35", name: "Fikih" },
+                    { time: "08.35 - 09.55", name: "Ilmu Pengetahuan Alam (IPA)" },
+                    { time: "10.15 - 11.35", name: "Bahasa Inggris" },
+                    { time: "11.35 - 12.30", name: "Seni Budaya" }
+                ],
+                piket: ["ALIYA NURKHOFIFAH", "FAUZAN HIDAYATUR ROFI", "GEA ADILA RAHAYU"]
+            },
+            rabu: {
+                day: "Rabu",
+                subjects: [
+                    { time: "07.15 - 08.35", name: "Sejarah Kebudayaan Islam (SKI)" },
+                    { time: "08.35 - 09.55", name: "Bahasa Arab" },
+                    { time: "10.15 - 11.35", name: "Ilmu Pengetahuan Sosial (IPS)" },
+                    { time: "11.35 - 12.30", name: "Pendidikan Pancasila & Kewarganegaraan" }
+                ],
+                piket: ["GINA KURNIAWATI", "IKHSAN FAUZI NUR ARIFIN", "ILHAM FIRMANSYAH"]
+            },
+            kamis: {
+                day: "Kamis",
+                subjects: [
+                    { time: "07.15 - 08.35", name: "Akidah Akhlak" },
+                    { time: "08.35 - 09.55", name: "Pendidikan Jasmani & Olahraga" },
+                    { time: "10.15 - 11.35", name: "Prakarya / Informatika" },
+                    { time: "11.35 - 12.30", name: "Bimbingan Konseling" }
+                ],
+                piket: ["INTAN NURHAKIM", "MAHESA RAMADHAN", "NAJA HUMUMI"]
+            },
+            jumat: {
+                day: "Jum'at",
+                subjects: [
+                    { time: "07.00 - 07.45", name: "Pembiasaan Dhuha & Tadarus Bersama" },
+                    { time: "07.45 - 09.00", name: "Bahasa Sunda" },
+                    { time: "09.15 - 10.30", name: "Tahfidz & Pendalaman Agama" }
+                ],
+                piket: ["MUHAMMAD RAFA ANGGARA", "RENITA AULIA RAMADANI", "REZA DARMAWAN"]
+            },
+            sabtu: {
+                day: "Sabtu",
+                subjects: [
+                    { time: "07.15 - 08.30", name: "Senam Pagi & Kebersihan Lingkungan" },
+                    { time: "08.30 - 10.00", name: "Pengembangan Diri & Literasi" },
+                    { time: "10.15 - 12.00", name: "Kegiatan Ekstrakurikuler MTs" }
+                ],
+                piket: ["RIO FATHAN AHMAD MUHAROM", "SANI NURBAYANI", "WILDANUL HAKIM"]
+            }
+        };
+
+        function selectDaySchedule(dayKey) {
+            const data = scheduleData[dayKey];
+            if (!data) return;
+
+            document.querySelectorAll('.day-tab').forEach(tab => {
+                if (tab.getAttribute('data-day') === dayKey) {
+                    tab.className = "day-tab active px-5 py-2.5 rounded-full border border-netflixRed bg-netflixRed text-sm font-semibold text-white transition";
+                } else {
+                    tab.className = "day-tab px-5 py-2.5 rounded-full border border-neutral-700 bg-neutral-900 text-sm font-semibold text-neutral-400 hover:text-white hover:border-netflixRed transition";
+                }
+            });
+
+            document.getElementById('active-day-label').textContent = data.day;
+
+            const subjList = document.getElementById('subjects-list');
+            subjList.innerHTML = '';
+            data.subjects.forEach(s => {
+                const li = document.createElement('li');
+                li.className = "flex items-start justify-between bg-neutral-950/80 p-2.5 rounded-lg border border-neutral-800";
+                li.innerHTML = `
+                    <span class="text-neutral-200 font-medium">${s.name}</span>
+                    <span class="font-mono text-xs text-netflixRed bg-netflixRed/10 px-2 py-0.5 rounded border border-netflixRed/20">${s.time}</span>
+                `;
+                subjList.appendChild(li);
+            });
+
+            const piketList = document.getElementById('piket-list');
+            piketList.innerHTML = '';
+            data.piket.forEach((studentName, idx) => {
+                const div = document.createElement('div');
+                div.className = "flex items-center gap-2 bg-neutral-950 p-2.5 rounded-lg border border-neutral-800 text-xs font-mono text-neutral-300";
+                div.innerHTML = `
+                    <span class="w-5 h-5 rounded-full bg-neutral-800 text-neutral-400 flex items-center justify-center font-bold text-[10px]">${idx + 1}</span>
+                    <span class="font-bold text-white">${studentName}</span>
+                `;
+                piketList.appendChild(div);
+            });
+        }
+
+        const defaultMemories = [
+            {
+                author: "Wali Kelas IX B",
+                mood: "❤️ Bangga & Terharu",
+                text: "Terima kasih atas 3 tahun yang luar biasa. Teruslah terbang tinggi mengejar impianmu, bawa nama baik MTs Al-Hidayah Bojongnangka!",
+                date: "14 Okt 2024"
+            },
+            {
+                author: "Ikhsan Fauzi (Ketua Kelas)",
+                mood: "🔥 Semangat Menyala",
+                text: "Kita masuk sebagai orang asing, tapi keluar sebagai sebuah keluarga besar TANPA NAMA yang abadi.",
+                date: "12 Okt 2024"
+            },
+            {
+                author: "Alda & Agnia",
+                mood: "😂 Momen Kocak",
+                text: "Kangen pas heboh rebutan spidol papan tulis pas jam kosong dan jajan seblak bareng di kantin!",
+                date: "08 Okt 2024"
+            }
+        ];
+
+        function getStoredMemories() {
+            const stored = localStorage.getItem('ixb_memories');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    return defaultMemories;
+                }
+            }
+            return defaultMemories;
+        }
+
+        function renderMemories() {
+            const container = document.getElementById('memories-container');
+            const countEl = document.getElementById('memory-count');
+            const list = getStoredMemories();
+
+            container.innerHTML = '';
+            countEl.textContent = list.length;
+
+            list.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-neutral-900 border border-neutral-800 p-4 rounded-xl space-y-2 hover:border-netflixRed/50 transition";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-bebas text-lg text-white tracking-wide">${item.author}</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-netflixRed font-bold">${item.mood}</span>
+                    </div>
+                    <p class="text-xs text-neutral-300 leading-relaxed font-light">"${item.text}"</p>
+                    <div class="text-[10px] text-neutral-500 font-mono text-right">${item.date || 'Kenangan'}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function submitMemory(e) {
+            e.preventDefault();
+            const author = document.getElementById('memory-author').value.trim();
+            const mood = document.getElementById('memory-mood').value;
+            const text = document.getElementById('memory-text').value.trim();
+
+            if (!author || !text) return;
+
+            const newMemory = {
+                author,
+                mood,
+                text,
+                date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+            };
+
+            const current = getStoredMemories();
+            current.unshift(newMemory);
+            localStorage.setItem('ixb_memories', JSON.stringify(current));
+
+            document.getElementById('memory-form').reset();
+            renderMemories();
+            showToast("✨ Pesan kenangan berhasil disimpan di Kapsul Waktu!");
+        }
+
+        function clearCustomMemories() {
+            localStorage.setItem('ixb_memories', JSON.stringify(defaultMemories));
+            renderMemories();
+            showToast("Kapsul waktu kembali ke pesan default.");
+        }
+
+        const trailerSlides = [
+            {
+                tag: "CHAPTER 01 • BAZAR CLASS",
+                title: "STAND BAZAR & SENI IX B",
+                desc: "Keseruan merancang dekorasi bazar milad sekolah, memasak bersama, dan melayani pengunjung dengan antusiasme penuh tawa."
+            },
+            {
+                tag: "CHAPTER 02 • CARNAVAL MERDEKA",
+                title: "PAWAI PRAJURIT BOJONGNANGKA",
+                desc: "Semangat kemerdekaan berkobar saat siswa-siswi IX B mengenakan kostum pejuang bambu runcing dengan yel-yel terkompak."
+            },
+            {
+                tag: "CHAPTER 03 • CLASS MEETING",
+                title: "DERBY PERSAUDARAAN",
+                desc: "Sorak sorai membahana di lapangan MTs Al-Hidayah, mempererat setiap jiwa di bawah panji Kelas IX B."
+            }
+        ];
+
+        let activeSlideIdx = 0;
+
+        function openTrailerModal(customTitle) {
+            playTudumSound();
+            if (customTitle) {
+                document.getElementById('trailer-title').textContent = customTitle.toUpperCase();
+            } else {
+                document.getElementById('trailer-title').textContent = "VICTORIOUS THINGS: OFFICIAL RECAP";
+            }
+            changeSlide(0);
+            document.getElementById('trailer-modal').classList.remove('hidden');
+        }
+
+        function closeTrailerModal() {
+            document.getElementById('trailer-modal').classList.add('hidden');
+        }
+
+        function changeSlide(idx) {
+            activeSlideIdx = idx;
+            const slide = trailerSlides[idx];
+            document.getElementById('trailer-screen-title').textContent = slide.title;
+            document.getElementById('trailer-screen-desc').textContent = `"${slide.desc}"`;
+
+            document.querySelectorAll('.slide-indicator').forEach((dot, i) => {
+                dot.className = i === idx ? 'slide-indicator w-3 h-3 rounded-full bg-netflixRed' : 'slide-indicator w-3 h-3 rounded-full bg-neutral-700';
+            });
+        }
+
+        function openProfileModal(student) {
+            document.getElementById('modal-student-name').textContent = student.name;
+            document.getElementById('modal-student-role').textContent = student.role;
+            document.getElementById('modal-student-quote').textContent = `"${student.quote}"`;
+            document.getElementById('modal-student-trait').textContent = student.trait;
+
+            const img = document.getElementById('modal-student-img');
+            img.src = student.photo;
+            img.onerror = () => {
+                img.src = `https://placehold.co/400x400/180608/ffffff?text=${encodeURIComponent(student.name.split(' ')[0])}`;
+            };
+
+            document.getElementById('profile-modal').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profile-modal').classList.add('hidden');
+        }
+
+        function toggleDeployModal(show) {
+            const modal = document.getElementById('deploy-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function scrollToCast() {
+            document.getElementById('cast').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onload = function() {
+            renderStudents();
+            selectDaySchedule('senin');
+            renderMemories();
+
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                if (window.scrollY > 40) {
+                    header.classList.add('bg-black', 'shadow-2xl');
+                } else {
+                    header.classList.remove('bg-black', 'shadow-2xl');
+                }
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeTrailerModal();
+                    closeProfileModal();
+                    toggleDeployModal(false);
+                }
+            });
+        };
+    </script>
+</body>
+</html>
